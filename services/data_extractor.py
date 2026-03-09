@@ -268,6 +268,7 @@ class DataExtractor:
         print('Closing browser...')
         self.driver.quit()
 
+# ================= Testing =================
 if __name__ == "__main__":
     post_url = 'https://www.linkedin.com/posts/klarna_klarnas-climate-resilience-program-activity-7346877091532959746-748v/'
     data_extractor = DataExtractor()
