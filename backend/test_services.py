@@ -12,7 +12,7 @@ if __name__ == "__main__":
     post_text = load_post_text('data/post_data.csv')
 
     print("Analyzing post...")
-    print(analyze_post_potential(client=aihubmix_client, post_text=post_text, model="gemini-3-flash-preview-free"))
+    print(analyze_post_potential(client=aihubmix_client, post_text=post_text, model="gemini-2.0-flash-lite"))
 
     print("Loading comments...")
     comment_text = load_comments_text('data/comments_data.csv')
