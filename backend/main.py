@@ -44,12 +44,10 @@ def create_app() -> FastAPI:
             raise ValueError("Could not retrieve post text from data.")
 
          # 2. Post Potential Score & Reason
-         llm_response_str = analyze_post_potential(ai_client, post_text)
+         llm_response = analyze_post_potential(ai_client, post_text)
          try:
-            clean_json_str = llm_response_str.strip().strip('```json').strip('```')
-            llm_result = json.loads(clean_json_str)
-            post_score = int(llm_result.get('score', 0))
-            advice = llm_result.get('reason', 'No specific advice provided by LLM.')
+            post_score = int(llm_response.get('score', 0))
+            advice = llm_response.get('reason', 'No specific advice provided by LLM.')
          except Exception as e:
             print(f"Failed to parse LLM response: {e}")
             post_score = 0
