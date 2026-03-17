@@ -3,15 +3,12 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
 
 class ICPScorer:
-    def __init__(self, reference_icp_text: str):
+    def __init__(self):
         """
         Initialize the scorer and load the lightweight vector model.
         """
-        self.reference_icp_text = reference_icp_text
         print("Loading SentenceTransformer vector model...")
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
-        # Pre-calculate the embedding for the Reference ICP
-        self.ref_embedding = self.model.encode([self.reference_icp_text])
 
     def _score_rules(self, row) -> int:
         """Part 1: Rule-based scoring (Max 50 points)"""
@@ -39,7 +36,7 @@ class ICPScorer:
             
         return score
 
-    def _score_semantic(self, row) -> int:
+    def _score_semantic(self, row, ref_embedding) -> int:
         """Part 2: Vector semantic similarity scoring (Max 50 points)"""
         # Extract text features
         features = [
@@ -58,18 +55,21 @@ class ICPScorer:
         # Calculate the embedding for the user's professional text
         user_embedding = self.model.encode([combined_text])
         # Calculate cosine similarity (between -1 and 1)
-        sim = util.cos_sim(user_embedding, self.ref_embedding).item()
+        sim = util.cos_sim(user_embedding, ref_embedding).item()
         
         # Map the similarity to a 0 - 50 point range
         # Similarity usually fluctuates between 0.1 and 0.8; apply a slight amplification mechanism
         sim_score = max(0, min(50, int((sim * 1.5) * 50))) 
         return sim_score
 
-    def evaluate_batch(self, csv_path: str):
+    def evaluate_batch(self, csv_path: str, reference_icp_text: str):
         """Batch evaluate all commenters"""
         print(f"Reading data: {csv_path}")
         df = pd.read_csv(csv_path)
         
+        # Pre-calculate the embedding for the Reference ICP
+        ref_embedding = self.model.encode([reference_icp_text])
+
         rule_scores = []
         semantic_scores = []
         total_scores = []
@@ -77,7 +77,7 @@ class ICPScorer:
         print("Performing ICP match scoring...")
         for _, row in df.iterrows():
             r_score = self._score_rules(row)
-            s_score = self._score_semantic(row)
+            s_score = self._score_semantic(row, ref_embedding)
             
             rule_scores.append(r_score)
             semantic_scores.append(s_score)
@@ -92,4 +92,4 @@ class ICPScorer:
         df.sort_values(by='icp_match_score', ascending=False).to_csv('data/comments_with_scores.csv', index=False)
         print("CSV successfully exported!")
 
-        return df['icp_match_score'].mean()
+        return df['icp_match_score'].mean()/10

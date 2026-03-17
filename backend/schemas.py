@@ -8,7 +8,10 @@ class EvaluationResult(BaseModel):
 # Define the request schema for FastAPI
 class UserRequest(BaseModel):
     post_url: HttpUrl = Field(description="The URL of the LinkedIn post")
-    li_at_cookie: str = Field(description="User's LinkedIn li_at cookie for bypassing login")
+    reference_icp: str = Field(
+        default="Director, Chief, or Lead decision maker in Sustainability, AI, Software, or Technology.",
+        description="The Ideal Customer Profile description to match commenters against"
+    )
 
 
 # Define the response schema for FastAPI
