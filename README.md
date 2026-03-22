@@ -1,6 +1,6 @@
-# LinkMetrics: A LinkedIn Post Analyzer
+# 📊 LinkMetrics - A LinkedIn Post Analyzer
 
-A full-stack AI application designed for growth hackers and B2B marketers. This tool evaluates the virality potential of a LinkedIn post, analyzes the sentiment of the audience, and scores commenters against your Ideal Customer Profile (ICP).
+> LinkMetrics is an AI-powered toolkit designed for **growth hackers** and **B2B marketers**. It forecasts the **virality potential** of a LinkedIn post, decodes **audience sentiment**, and identifies high-value leads against your **Ideal Customer Profile (ICP)**.
 
 ## ✨ Features
 
