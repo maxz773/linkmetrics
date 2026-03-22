@@ -71,7 +71,7 @@ This project is built with production-readiness and scalability in mind, incorpo
 ## 📂 Project Structure
 
 ```text
-linkedin-post-analyzer/
+linkmetrics/
 ├── backend/
 │   ├── main.py                 # FastAPI application and routing
 │   ├── schemas.py              # Pydantic models for request/response validation
