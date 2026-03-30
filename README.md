@@ -4,7 +4,7 @@
 
 ## ✨ Features
 
-### 📤 Dual-Mode Input
+### 1. Dual-Mode Input📤
 
 - #### *via URL*
 
@@ -14,7 +14,7 @@
 
   Upload your own `post_data.csv` and `comments_data.csv` files along with an `ICP description` to bypass the scraping phase and directly run the analysis.
 
-### 💯 Three-Dimensional Scoring Engine
+### 2. Three-Dimensional Scoring Engine 💯
 
 - #### *Post Potential Score* <kbd>1-10</kbd>
    Evaluates the hook, readability, value, and CTA of the post's text using an external LLM. Includes actionable advice for improvement.
@@ -24,6 +24,26 @@
    
 - #### *ICP Match Score* <kbd>1-10</kbd>
    A hybrid scoring engine combining rule-based heuristics (followers, likes, account type) and semantic vector similarity (SentenceTransformers) to determine how well the commenters match your target audience.
+
+### 3. Containerized Deployment 🐳
+
+To safely handle complex system-level dependencies (like Chromium for Selenium) and heavy ML libraries (PyTorch, Transformers) without environment conflicts, the project provides full Docker support.
+
+## 🚀 Quick Start
+
+1. Create a `secrets` directory and securely inject your API key:
+
+     ```bash
+     mkdir secrets
+     echo "your_real_api_key_here" > backend/secrets/ai_api_key.txt
+     ```
+3. Launch the system:
+
+     ```bash
+     docker-compose up -d --build
+     ```
+
+The orchestration will automatically spin up the FastAPI backend, the Nginx static frontend, and securely mount the required data volumes.
 
 ## 🛠️ Tech Stack
 
