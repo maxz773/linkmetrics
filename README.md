@@ -34,7 +34,7 @@ To safely handle complex system-level dependencies (like Chromium for Selenium) 
 1. Create a `secrets` directory and securely inject your AIHubMix API key:
 
      ```bash
-     mkdir secrets
+     mkdir backend/secrets
      echo "your_real_api_key_here" > backend/secrets/aihubmix_api_key.txt
      ```
 3. Launch the system:
